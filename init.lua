@@ -288,6 +288,8 @@ vim.wo.signcolumn = 'yes'
 -- Decrease update time
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
+
+--set relative line numbers for better navigation
 vim.o.relativenumber = true
 
 -- Set completeopt to have a better completion experience
@@ -299,7 +301,10 @@ vim.o.termguicolors = true
 -- [[ Basic Keymaps ]]
 
 --my default escape
-vim.keymap.set({ 'i' }, 'kj', '<Esc>', { silent = true })
+vim.keymap.set({ 'i', 't' }, 'kj', '<Esc>', { silent = true })
+
+--open neotree.....i'm use to this keymap from nerdtree days
+vim.keymap.set('n', "<leader>nt", ':Neotree<CR>', { desc = 'Open Neotree' })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
