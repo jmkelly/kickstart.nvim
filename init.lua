@@ -219,18 +219,9 @@ require('lazy').setup({
       },
     },
   },
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
-      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-    }
-  },
 
   {
+
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
@@ -251,7 +242,7 @@ require('lazy').setup({
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting options ]]
@@ -301,10 +292,10 @@ vim.o.termguicolors = true
 -- [[ Basic Keymaps ]]
 
 --my default escape
-vim.keymap.set({ 'i', 't' }, 'kj', '<Esc>', { silent = true })
+vim.keymap.set('i', 'kj', '<Esc>', { silent = true })
 
 --open neotree.....i'm use to this keymap from nerdtree days
-vim.keymap.set('n', "<leader>nt", ':Neotree<CR>', { desc = 'Open Neotree' })
+vim.keymap.set('n', "<leader>nt", ':NvimTreeToggle<CR>', { desc = 'Open Neotree' })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -319,6 +310,120 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+
+--setup toggleterm
+require("toggleterm").setup {}
+vim.keymap.set('n', '<leader>t', ':ToggleTerm<CR>', { silent = true, desc = "Open Terminal" })
+vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], { desc = "Escape to normal mode" })
+vim.keymap.set('t', 'kj', [[<C-\><C-n>]], { desc = "Escape to normal mode" })
+vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], { desc = "window left" })
+vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], { desc = "window up" })
+vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], { desc = "window down" })
+vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], { desc = "window left" })
+vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], {})
+
+
+--save sessions
+require('sessions').setup()
+
+
+--setup bufferline
+local bufferline = require('bufferline')
+bufferline.setup {
+  options = {
+    mode = "buffers", -- set to "tabs" to only show tabpages instead
+    style_preset = bufferline.style_preset.default, -- or bufferline.style_preset.minimal,
+    themable = true, --| false, -- allows highlight groups to be overriden i.e. sets highlights as default
+    numbers = "none",
+    close_command = "bdelete! %d", -- can be a string | function, | false see "Mouse actions"
+    right_mouse_command = "bdelete! %d", -- can be a string | function | false, see "Mouse actions"
+    left_mouse_command = "buffer %d", -- can be a string | function, | false see "Mouse actions"
+    middle_mouse_command = nil, -- can be a string | function, | false see "Mouse actions"
+    indicator = {
+      icon = '▎', -- this should be omitted if indicator style is not 'icon'
+      style = 'icon',
+    },
+    buffer_close_icon = '󰅖',
+    modified_icon = '●',
+    close_icon = '',
+    left_trunc_marker = '',
+    right_trunc_marker = '',
+    --- name_formatter can be used to change the buffer's label in the bufferline.
+    --- Please note some names can/will break the
+    --- bufferline so use this at your discretion knowing that it has
+    --- some limitations that will *NOT* be fixed.
+    name_formatter = function(buf) -- buf contains:
+      -- name                | str        | the basename of the active file
+      -- path                | str        | the full path of the active file
+      -- bufnr (buffer only) | int        | the number of the active buffer
+      -- buffers (tabs only) | table(int) | the numbers of the buffers in the tab
+      -- tabnr (tabs only)   | int        | the "handle" of the tab, can be converted to its ordinal number using: `vim.api.nvim_tabpage_get_number(buf.tabnr)`
+    end,
+    max_name_length = 18,
+    max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
+    truncate_names = true,  -- whether or not tab names should be truncated
+    tab_size = 18,
+    diagnostics = "nvim_lsp",
+    diagnostics_update_in_insert = false,
+    -- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
+    diagnostics_indicator = function(count, level, diagnostics_dict, context)
+      return "(" .. count .. ")"
+    end,
+    -- NOTE: this will be called a lot so don't do any heavy processing here
+    custom_filter = function(buf_number, buf_numbers)
+      -- filter out filetypes you don't want to see
+      if vim.bo[buf_number].filetype ~= "<i-dont-want-to-see-this>" then
+        return true
+      end
+      -- filter out by buffer name
+      if vim.fn.bufname(buf_number) ~= "<buffer-name-I-dont-want>" then
+        return true
+      end
+      -- filter out based on arbitrary rules
+      -- e.g. filter out vim wiki buffer from tabline in your work repo
+      if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
+        return true
+      end
+      -- filter out by it's index number in list (don't show first buffer)
+      if buf_numbers[1] ~= buf_number then
+        return true
+      end
+    end,
+    offsets = {
+      {
+        filetype = "NvimTree",
+        text = "File Explorer",
+        text_align = "left",
+        separator = true
+      }
+    },
+    color_icons = true, --| false, -- whether or not to add the filetype icon highlights
+    get_element_icon = function(element)
+    end,
+    show_buffer_icons = true,       --| false, -- disable filetype icons for buffers
+    show_buffer_close_icons = true, --| false,
+    show_close_icon = true,         --| false,
+    show_tab_indicators = true,     --| false,
+    show_duplicate_prefix = true,   --| false, -- whether to show duplicate buffer prefix
+    persist_buffer_sort = true,     -- whether or not custom sorted buffers should persist
+    move_wraps_at_ends = false,     -- whether or not the move command "wraps" at the first or last position
+    -- can also be a table containing 2 custom separators
+    -- [focused and unfocused]. eg: { '|', '|' }
+    separator_style = "slant",     --| "slope" | "thick" | "thin" | { 'any', 'any' },
+    enforce_regular_tabs = false,  --| true,
+    always_show_bufferline = true, --| false,
+    hover = {
+      enabled = true,
+      delay = 200,
+      reveal = { 'close' }
+    },
+  }
+}
+
+--bufferline specific prev and next tab
+vim.keymap.set('n', '<leader>h', ':BufferLineCyclePrev<CR>', { desc = 'Goto Previous Buffer', silent = true })
+vim.keymap.set('n', '<leader>l', ':BufferLineCycleNext<CR>', { desc = 'Goto Next Buffer', silent = true })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
