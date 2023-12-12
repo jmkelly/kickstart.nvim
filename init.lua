@@ -280,6 +280,7 @@ require('lazy').setup({
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
   require 'kickstart.plugins.autoformat',
+  require 'custom.plugins.bufferline',
   -- require 'kickstart.plugins.debug',
 
 
@@ -566,6 +567,7 @@ end
 require('which-key').register {
   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
+  ['<leader>f'] = { name = '[F]ind', _ = 'which_key_ignore' },
   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
   ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
@@ -687,6 +689,11 @@ cmp.setup {
     { name = 'path' },
   },
 }
+
+require("bufferline").setup {}
+
+vim.keymap.set('n', "<leader>l", ':BufferLineCycleNext<CR>', { desc = 'cycle next tab', silent = true })
+vim.keymap.set('n', "<leader>h", ':BufferLineCyclePrev<CR>', { desc = 'cycle next tab', silent = true })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
