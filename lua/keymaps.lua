@@ -1,9 +1,9 @@
 --try to keep all my keymappings in here so I know where I can
 --go when i have any conflicts
 
-vim.keymap.set({ 'i', 't' }, 'kj', '<Esc>', { silent = true })
+vim.keymap.set({ 'i' }, 'kj', '<Esc>', { silent = true })
 --open neotree.....i'm use to this keymap from nerdtree days
-vim.keymap.set('n', "<leader>nt", ':Neotree<CR>', { desc = 'Open Neotree' })
+vim.keymap.set('n', "<leader>nt", ':Neotree toggle<CR>', { desc = 'Open or close Neotree' })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -19,6 +19,7 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
+vim.keymap.set('t', 'kj', "<C-\\><C-N>", { desc = 'return to normal mode. |CTRL-\\_CTRL-N' })
 
 --telescope ones from kickstart
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
