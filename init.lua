@@ -107,7 +107,7 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
+  omnisharp = {},
 
   lua_ls = {
     Lua = {
