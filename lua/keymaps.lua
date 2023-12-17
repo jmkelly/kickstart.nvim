@@ -51,3 +51,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 --bufferline keymaps
 vim.keymap.set('n', "<leader>l", ':BufferLineCycleNext<CR>', { desc = 'cycle next tab', silent = true })
 vim.keymap.set('n', "<leader>h", ':BufferLineCyclePrev<CR>', { desc = 'cycle next tab', silent = true })
+
+--vim-test
+vim.keymap.set('n', '<leader>tn', ':TestNearest<CR>', { desc = 'Test Nearest', silent = true })
+vim.keymap.set('n', '<leader>ta', ':TestSuite<CR>', { desc = 'Test All', silent = true })
