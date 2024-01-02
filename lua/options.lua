@@ -30,7 +30,7 @@ vim.o.smartcase = true
 vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
-vim.o.updatetime = 250
+vim.o.updatetime = 50
 vim.o.timeoutlen = 300
 
 --set relative line numbers for better navigation
@@ -43,9 +43,14 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
 
 -- Set tab width to 2 columns
-vim.o.tabstop = 2
-vim.o.softtabstop = 2
-vim.o.shiftwidth = 2
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
 
 -- Use tabs instead of spaces
 vim.o.expandtab = false
+
+if vim.loop.os_uname().sysname == "Windows_NT" then
+  vim.o.shell="pwsh"
+end
+
