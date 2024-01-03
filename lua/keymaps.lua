@@ -53,5 +53,9 @@ vim.keymap.set('n', "<leader>l", ':BufferLineCycleNext<CR>', { desc = 'cycle nex
 vim.keymap.set('n', "<leader>h", ':BufferLineCyclePrev<CR>', { desc = 'cycle next tab', silent = true })
 
 --vim-test
-vim.keymap.set('n', '<leader>tn', ':TestNearest<CR>', { desc = 'Test Nearest', silent = true })
-vim.keymap.set('n', '<leader>ta', ':TestSuite<CR>', { desc = 'Test All', silent = true })
+vim.keymap.set('n', '<leader>tn', ':TestNearest<CR>', { desc = '[T]est [N]earest', silent = true })
+vim.keymap.set('n', '<leader>ta', ':TestSuite<CR>', { desc = '[T]est [A]ll', silent = true })
+
+--some toggleterm shortcuts
+vim.keymap.set('n', '<leader>ht', ':ToggleTerm direction=horizontal<CR>', { desc = '[H]orizontal terminal', silent = true })
+vim.keymap.set('n', '<leader>vt', ':ToggleTerm direction=vertical size=60<CR>', { desc = '[V]ertical terminal', silent = true })
