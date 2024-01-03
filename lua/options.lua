@@ -3,7 +3,7 @@
 -- NOTE: You can change these options as you wish!
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
@@ -49,6 +49,11 @@ vim.o.shiftwidth = 4
 
 -- Use tabs instead of spaces
 vim.o.expandtab = false
+
+--this helps to see the current line
+vim.opt.cursorline = true
+
+
 
 
 local powershell_options = {
