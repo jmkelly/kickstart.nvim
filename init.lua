@@ -17,6 +17,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+--set options prior to loading plugins
+require('options')
 --refactored to use the lazy convention to load all files from the lua/plugins directory
 require('lazy').setup("plugins")
 
@@ -24,7 +26,6 @@ require('lazy').setup("plugins")
 require('keymaps')
 
 --options in one spot too
-require('options')
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
