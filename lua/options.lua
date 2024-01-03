@@ -50,7 +50,24 @@ vim.o.shiftwidth = 4
 -- Use tabs instead of spaces
 vim.o.expandtab = false
 
+
+local powershell_options = {
+  shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
+  shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+  shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
+  shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
+  shellquote = "",
+  shellxquote = "",
+}
+
+
+--only apply the powershell settings for windows
 if vim.loop.os_uname().sysname == "Windows_NT" then
-  vim.o.shell="pwsh"
+	for option, value in pairs(powershell_options) do
+	  vim.opt[option] = value
+	end
 end
+
+
+
 
