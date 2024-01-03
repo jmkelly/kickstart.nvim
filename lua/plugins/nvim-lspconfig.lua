@@ -13,4 +13,9 @@ return {
 		-- Additional lua configuration, makes nvim stuff amazing!
 		'folke/neodev.nvim',
 	},
+	config = function()
+		require 'lspconfig'.omnisharp.setup {
+			enable_roslyn_analyzers = true
+		}
+	end
 }
