@@ -61,9 +61,10 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   --add code actions to visual mode as well
   vim.keymap.set({'n','v'}, '<leader>ca', vim.lsp.buf.code_action, {buffer=bufnr, desc='LSP: [Code] Action'})
+  nmap('<leader>cr', vim.lsp.buf.rename, '[C]ode [R]ename')
+  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
