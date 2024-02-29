@@ -16,9 +16,6 @@ return {
 			-- )
 		end
 	},
-	{
-		"Hoffs/omnisharp-extended-lsp.nvim",
-	},
 	{ "williamboman/mason-lspconfig.nvim" },
 	{ "neovim/nvim-lspconfig" }
 }
