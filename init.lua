@@ -20,7 +20,13 @@ vim.opt.rtp:prepend(lazypath)
 --set options prior to loading plugins
 require('options')
 --refactored to use the lazy convention to load all files from the lua/plugins directory
-require('lazy').setup("plugins")
+require('lazy').setup("plugins", 
+  {
+    config = function(config) 
+      config.defaults.lazy = true
+    end
+  }
+)
 
 --try to keep all keymaps in same place....
 require('keymaps')

@@ -59,3 +59,23 @@ vim.keymap.set('n', '<leader>ta', ':TestSuite<CR>', { desc = '[T]est [A]ll', sil
 --some toggleterm shortcuts
 vim.keymap.set('n', '<leader>ht', ':ToggleTerm direction=horizontal<CR>', { desc = '[H]orizontal terminal', silent = true })
 vim.keymap.set('n', '<leader>vt', ':ToggleTerm direction=vertical size=60<CR>', { desc = '[V]ertical terminal', silent = true })
+
+--move whole lines in visual mode
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+local harpoon = require("harpoon") --no need to call setup as we have already done that as part of plugins
+
+--harpoon
+vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end)
+vim.keymap.set("n", "<leader>pe",function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end)
+vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end)
+vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end)
+
+-- Toggle previous & next buffers stored within Harpoon list
+vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
+vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+
