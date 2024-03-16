@@ -56,9 +56,10 @@ vim.keymap.set('n', "<leader>h", ':BufferLineCyclePrev<CR>', { desc = 'cycle nex
 vim.keymap.set('n', '<leader>tn', ':TestNearest<CR>', { desc = '[T]est [N]earest', silent = true })
 vim.keymap.set('n', '<leader>ta', ':TestSuite<CR>', { desc = '[T]est [A]ll', silent = true })
 
+
 --build in terminal
-vim.keymap.set('n', '<leader>db', ':term<CR>adotnet build<CR>', { desc = '[D]otnet [B]uild', silent = true })
-vim.keymap.set('n', '<leader>dbe', ':term<CR>adotnet build<CR>exit<CR><CR>', { desc = '[D]otnet [B]uild and [Exit]', silent = true })
+vim.keymap.set('n', '<leader>db', ':term<CR>adotnet build<CR>exit<CR><CR>', { desc = '[D]otnet [B]uild' , silent = true })
+vim.keymap.set('n', '<leader>dt', ':term<CR>adotnet test<CR>exit<CR>', { desc = '[D]otnet [T]est ', silent = true })
 
 --some toggleterm shortcuts
 vim.keymap.set('n', '<leader>ht', ':ToggleTerm direction=horizontal<CR>', { desc = '[H]orizontal terminal', silent = true })
